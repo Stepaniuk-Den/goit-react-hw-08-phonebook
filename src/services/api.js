@@ -1,18 +1,50 @@
 import axios from 'axios';
 
 const $instance = axios.create({
-  baseURL: 'https://64c21d6bfa35860baea1349e.mockapi.io/',
+  baseURL: 'https://connections-api.herokuapp.com/',
 });
 
-export const fetchContacts = async () => {
+export const setToken = token => {
+  $instance.defaults.headers.Autorization = `Bearer ${token}`;
+};
+export const clearToken = () => {
+  $instance.defaults.headers.Autorization = '';
+};
+
+export const loginRequest = async formData => {
+  const { data } = await $instance.post('/users/login', formData);
+  setToken(data.token);
+  return data;
+};
+
+export const registerRequest = async formData => {
+  const { data } = await $instance.post('/users/signup', formData);
+  setToken(data.token);
+  return data;
+};
+
+export const addContactRequest = async formData => {
+  const { data } = await $instance.post('/contacts', formData);
+  return data;
+};
+
+export const logoutRequest = async () => {
+  const { data } = await $instance.post('/users/logout');
+  clearToken();
+  return data;
+};
+
+export const currentUserRequest = async () => {
+  const { data } = await $instance.get('/users/current');
+  return data;
+};
+
+export const getContactRequest = async () => {
   const { data } = await $instance.get('/contacts');
   return data;
 };
-export const addContacts = async contact => {
-  const { data } = await $instance.post('/contacts', contact);
-  return data;
-};
-export const deleteContacts = async id => {
-  const { data } = await $instance.delete(`/contacts/${id}`);
+
+export const deleteContactRequest = async contactId => {
+  const { data } = await $instance.delete(`/contacts/${contactId}`);
   return data;
 };

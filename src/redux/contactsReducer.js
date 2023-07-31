@@ -1,62 +1,60 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import {
-  addContactsThunk,
-  deleteContactsThunk,
-  getContactsThunk,
+  registerThunk,
+  loginThunk,
+  logoutThunk,
+  refreshUserThunk,
 } from './thunk';
 
 const initialState = {
-  contacts: {
-    items: [],
-    isLoading: false,
-    error: null,
-  },
-  filter: '',
+  userData: null,
+  isLoading: false,
+  error: null,
+  token: null,
 };
 
 const handlePending = state => {
-  state.contacts.isLoading = true;
-  state.contacts.error = null;
+  state.isLoading = true;
+  state.error = null;
 };
 
-const handleRejected = (state, { error }) => {
-  state.contacts.isLoading = false;
-  state.contacts.error = error.message;
+const handleRejected = (state, action) => {
+  state.isLoading = false;
+  state.error = action.payload;
 };
 
-const stateArr = [getContactsThunk, addContactsThunk, deleteContactsThunk];
+const stateArr = [registerThunk, loginThunk, logoutThunk, refreshUserThunk];
 
 const handler = status => {
   return stateArr.map(item => item[status]);
 };
 
 const contactsSlice = createSlice({
-  name: 'contacts',
+  name: 'user',
   initialState,
-  reducers: {
-    filterContact: (state, action) => {
-      state.filter = action.payload;
-    },
-  },
   extraReducers: builder =>
     builder
-      .addCase(getContactsThunk.fulfilled, (state, action) => {
-        state.contacts.isLoading = false;
-        state.contacts.items = action.payload;
+      .addCase(registerThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.userData = action.payload.user;
+        state.token = action.payload.token;
       })
-      .addCase(addContactsThunk.fulfilled, (state, action) => {
-        state.contacts.isLoading = false;
-        state.contacts.items.push(action.payload);
+      .addCase(loginThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.userData = action.payload.user;
+        state.token = action.payload.token;
       })
-      .addCase(deleteContactsThunk.fulfilled, (state, action) => {
-        state.contacts.isLoading = false;
-        state.contacts.items = state.contacts.items.filter(
-          contact => contact.id !== action.payload.id
-        );
+      .addCase(logoutThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.userData = null;
+        state.token = null;
+      })
+      .addCase(refreshUserThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.userData = action.payload;
       })
       .addMatcher(isAnyOf(...handler('rejected')), handleRejected)
       .addMatcher(isAnyOf(...handler('pending')), handlePending),
 });
 
 export const contactsReducer = contactsSlice.reducer;
-export const { filterContact } = contactsSlice.actions;
