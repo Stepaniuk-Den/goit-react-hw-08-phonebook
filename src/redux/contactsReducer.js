@@ -1,60 +1,63 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
-import {
-  registerThunk,
-  loginThunk,
-  logoutThunk,
-  refreshUserThunk,
-} from './thunk';
+import { addContact, deleteContact, fetchContacts } from './contactsOperations';
+import { handlePending, handleRejected } from './userReducer';
 
 const initialState = {
-  userData: null,
+  contacts: [],
   isLoading: false,
   error: null,
-  token: null,
+  filter: '',
 };
 
-const handlePending = state => {
-  state.isLoading = true;
-  state.error = null;
-};
-
-const handleRejected = (state, action) => {
-  state.isLoading = false;
-  state.error = action.payload;
-};
-
-const stateArr = [registerThunk, loginThunk, logoutThunk, refreshUserThunk];
+const stateArr = [fetchContacts, addContact, deleteContact];
 
 const handler = status => {
   return stateArr.map(item => item[status]);
 };
-
 const contactsSlice = createSlice({
-  name: 'user',
+  name: 'contacts',
   initialState,
+  reducers: {
+    filterContact: (state, action) => {
+      state.filter = action.payload;
+    },
+  },
   extraReducers: builder =>
     builder
-      .addCase(registerThunk.fulfilled, (state, action) => {
+
+      .addCase(fetchContacts.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.userData = action.payload.user;
-        state.token = action.payload.token;
+        state.contacts = action.payload;
       })
-      .addCase(loginThunk.fulfilled, (state, action) => {
+
+      .addCase(addContact.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.userData = action.payload.user;
-        state.token = action.payload.token;
+
+        // -------- 1st method --------
+        state.contacts.push(action.payload);
+
+        // -------- 2nd method --------
+        // state.contacts = [action.payload, ...state.contacts];
       })
-      .addCase(logoutThunk.fulfilled, (state, action) => {
+
+      .addCase(deleteContact.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.userData = null;
-        state.token = null;
+
+        // -------- 1st method --------
+        const deletedContactIndex = state.contacts.findIndex(
+          contact => contact.id === action.payload.id
+        );
+        state.contacts.splice(deletedContactIndex, 1);
+
+        // -------- 2nd method --------
+        // state.contacts = state.contacts.filter(
+        //   contact => contact.id !== action.payload.id
+        // );
       })
-      .addCase(refreshUserThunk.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.userData = action.payload;
-      })
+
       .addMatcher(isAnyOf(...handler('rejected')), handleRejected)
       .addMatcher(isAnyOf(...handler('pending')), handlePending),
 });
 
 export const contactsReducer = contactsSlice.reducer;
+export const { filterContact } = contactsSlice.actions;

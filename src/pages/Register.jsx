@@ -1,8 +1,9 @@
+import SignUp from 'components/SignUp/SignUp';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useNavigate } from 'react-router-dom';
-import { registerThunk } from 'redux/thunk';
+import { registerThunk } from 'redux/loginOperations';
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -29,7 +30,8 @@ const Register = () => {
 
   return (
     <div>
-      <h1>Register Account</h1>
+      <SignUp handleSubmit={handleSubmit} />
+      {/* <h1>Register Account</h1>
       <form onSubmit={handleSubmit}>
         <label>
           <p>Name:</p>
@@ -55,7 +57,7 @@ const Register = () => {
           />
         </label>
         <button type="submit">Sign Up</button>
-      </form>
+      </form> */}
     </div>
   );
 };

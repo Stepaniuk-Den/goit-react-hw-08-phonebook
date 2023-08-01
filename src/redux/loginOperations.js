@@ -52,10 +52,11 @@ export const refreshUserThunk = createAsyncThunk(
     try {
       setToken(token);
       const data = await currentUserRequest();
-
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
+
+// export const getCurrentThunk = createAsyncThunk('user/current', (, thunkAPI)=>currentUser(, thunkAPI))

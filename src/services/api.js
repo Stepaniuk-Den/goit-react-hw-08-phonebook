@@ -5,10 +5,10 @@ const $instance = axios.create({
 });
 
 export const setToken = token => {
-  $instance.defaults.headers.Autorization = `Bearer ${token}`;
+  $instance.defaults.headers.Authorization = `Bearer ${token}`;
 };
 export const clearToken = () => {
-  $instance.defaults.headers.Autorization = '';
+  $instance.defaults.headers.Authorization = '';
 };
 
 export const loginRequest = async formData => {
@@ -34,7 +34,18 @@ export const logoutRequest = async () => {
   return data;
 };
 
-export const currentUserRequest = async () => {
+// export const currentUserRequest = async () => {
+//   const { data } = await $instance.get('/users/current');
+//   return data;
+// };
+
+export const currentUserRequest = async (_, thunkAPI) => {
+  const state = thunkAPI.getState();
+  const persistedToken = state.user.token;
+
+  if (!persistedToken) return thunkAPI.rejectWithValue();
+
+  setToken(persistedToken);
   const { data } = await $instance.get('/users/current');
   return data;
 };

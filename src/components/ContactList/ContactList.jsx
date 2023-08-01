@@ -4,17 +4,19 @@ import { StyledContactList } from './ContactList.styled';
 import Contact from 'components/Contact/Contact';
 
 const ContactList = ({ contacts, onRemoveContact }) => {
+  const showContacts = Array.isArray(contacts) && contacts.length > 0;
   return (
     <StyledContactList>
-      {contacts.map(contact => {
-        return (
-          <Contact
-            key={contact.id}
-            contact={contact}
-            onRemoveContact={onRemoveContact}
-          />
-        );
-      })}
+      {showContacts &&
+        contacts.map(contact => {
+          return (
+            <Contact
+              key={contact.id}
+              contact={contact}
+              onRemoveContact={onRemoveContact}
+            />
+          );
+        })}
     </StyledContactList>
   );
 };
