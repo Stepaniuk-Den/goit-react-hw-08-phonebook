@@ -1,4 +1,5 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -64,7 +65,7 @@ export default function SignIn({ handleSubmit }) {
           <Box
             component="form"
             onSubmit={handleSubmit}
-            noValidate
+            // noValidate
             sx={{ mt: 1 }}
           >
             <TextField
@@ -88,7 +89,8 @@ export default function SignIn({ handleSubmit }) {
               autoComplete="current-password"
             />
             <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
+              required
+              control={<Checkbox value="remember" color="primary" required />}
               label="Remember me"
             />
             <Button
@@ -118,3 +120,7 @@ export default function SignIn({ handleSubmit }) {
     </ThemeProvider>
   );
 }
+
+SignIn.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+};

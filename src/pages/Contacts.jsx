@@ -12,13 +12,20 @@ import {
 } from 'redux/contactsOperations';
 import Loader from 'components/Loader/Loader';
 import withAuthRedirect from 'HOC/withAuthRedirect';
+import {
+  selectContacts,
+  selectError,
+  selectFilter,
+  selectIsLoading,
+  selectUserData,
+} from 'redux/selectors';
 
 export const Contacts = () => {
-  const userData = useSelector(state => state.user.userData);
-  const filter = useSelector(state => state.phonebook.filter);
-  const selectContacts = useSelector(state => state.phonebook.contacts);
-  const isLoading = useSelector(state => state.phonebook.isLoading);
-  const error = useSelector(state => state.phonebook.error);
+  const userData = useSelector(selectUserData);
+  const filter = useSelector(selectFilter);
+  const contacts = useSelector(selectContacts);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
 
   const dispatch = useDispatch();
 
@@ -38,9 +45,7 @@ export const Contacts = () => {
   };
 
   const onDublicate = dublicated => {
-    const dublicate = selectContacts.filter(
-      contact => contact.name === dublicated
-    );
+    const dublicate = contacts.filter(contact => contact.name === dublicated);
     return dublicate.length > 0;
   };
 
@@ -52,7 +57,7 @@ export const Contacts = () => {
     dispatch(deleteContact(contactId));
   };
 
-  const filteredContact = selectContacts.filter(contact =>
+  const filteredContact = contacts.filter(contact =>
     contact.name.toLowerCase().includes(filter.toLowerCase().trim())
   );
 

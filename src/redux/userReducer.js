@@ -54,7 +54,12 @@ const usersSlice = createSlice({
         state.userData = action.payload;
       })
       .addMatcher(isAnyOf(...handler('rejected')), handleRejected)
+
+      // -------- 1st method --------
       .addMatcher(isAnyOf(...handler('pending')), handlePending),
+
+  // -------- 2nd method --------
+  // .addMatcher(action => action.type.endsWith('/pending'), handlePending)
 });
 
 export const userReducer = usersSlice.reducer;

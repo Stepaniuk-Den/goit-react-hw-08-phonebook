@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { useNavigate } from 'react-router-dom';
 import { registerThunk } from 'redux/loginOperations';
+import { selectUserData } from 'redux/selectors';
 
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userData = useSelector(state => state.user.userData);
+  const userData = useSelector(selectUserData);
 
   useEffect(() => {
     if (!userData) return;

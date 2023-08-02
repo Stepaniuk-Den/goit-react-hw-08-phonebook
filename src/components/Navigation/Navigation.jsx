@@ -1,28 +1,32 @@
 import UserMenu from 'components/UserMenu/UserMenu';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+
+import {
+  StyledNavLink,
+  StyledNavigation,
+  StyledUser,
+} from './Navigation.styled';
+import { selectUserData } from 'redux/selectors';
 
 const Navigation = ({ handleLogout }) => {
-  const userData = useSelector(state => state.user.userData);
+  const userData = useSelector(selectUserData);
   return (
     <div>
-      <nav>
-        <Link to="/">Home</Link>
+      <StyledNavigation>
+        <StyledNavLink to="/">Home</StyledNavLink>
         {userData ? (
-          <>
-            <Link to="/contacts">Contacts</Link>
-            <div>
-              <UserMenu handleLogout={handleLogout} />
-            </div>
-          </>
+          <StyledUser>
+            <StyledNavLink to="/contacts">Contacts</StyledNavLink>
+            <UserMenu handleLogout={handleLogout} />
+          </StyledUser>
         ) : (
           <>
-            <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link>
+            <StyledNavLink to="/login">Login</StyledNavLink>
+            <StyledNavLink to="/register">Register</StyledNavLink>
           </>
         )}
-      </nav>
+      </StyledNavigation>
     </div>
   );
 };

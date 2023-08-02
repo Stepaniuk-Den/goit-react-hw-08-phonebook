@@ -1,4 +1,5 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -63,7 +64,7 @@ export default function SignUp({ handleSubmit }) {
           </Typography>
           <Box
             component="form"
-            noValidate
+            // noValidate
             onSubmit={handleSubmit}
             sx={{ mt: 3 }}
           >
@@ -112,8 +113,13 @@ export default function SignUp({ handleSubmit }) {
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
+                  required
                   control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
+                    <Checkbox
+                      value="allowExtraEmails"
+                      color="primary"
+                      required
+                    />
                   }
                   label="I want to receive inspiration, marketing promotions and updates via email."
                 />
@@ -141,3 +147,7 @@ export default function SignUp({ handleSubmit }) {
     </ThemeProvider>
   );
 }
+
+SignUp.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+};

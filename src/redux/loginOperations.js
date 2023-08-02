@@ -58,5 +58,3 @@ export const refreshUserThunk = createAsyncThunk(
     }
   }
 );
-
-// export const getCurrentThunk = createAsyncThunk('user/current', (, thunkAPI)=>currentUser(, thunkAPI))

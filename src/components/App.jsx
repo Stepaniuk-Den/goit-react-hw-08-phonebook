@@ -6,7 +6,7 @@ import Loader from './Loader/Loader';
 import { logoutThunk, refreshUserThunk } from 'redux/loginOperations';
 import Layout from './Layout/Layout';
 
-const Home = lazy(() => import('pages/Home'));
+const Home = lazy(() => import('pages/Home/Home'));
 const Login = lazy(() => import('pages/Login'));
 const Register = lazy(() => import('pages/Register'));
 const Contacts = lazy(() => import('pages/Contacts'));
@@ -30,7 +30,7 @@ export const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/contacts" element={<Contacts />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="*" element={<Navigate to="/contacts" replace />} />
           </Route>
         </Routes>
       </Suspense>

@@ -3,11 +3,12 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { loginThunk } from 'redux/loginOperations';
+import { selectUserData } from 'redux/selectors';
 
 const Login = () => {
   const dispatch = useDispatch();
 
-  const userData = useSelector(state => state.user.userData);
+  const userData = useSelector(selectUserData);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,29 +30,6 @@ const Login = () => {
   return (
     <div>
       <SignIn handleSubmit={handleSubmit} />
-      {/* <h1>Login into your account</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          <p>Email: </p>
-          <input
-            placeholder="mail@mail.com"
-            name="userEmail"
-            type="email"
-            required
-          />
-        </label>
-        <label>
-          <p>Password: </p>
-          <input
-            placeholder="password"
-            name="userPassword"
-            type="password"
-            minLength={7}
-            required
-          />
-        </label>
-        <button type="submit">Sign In</button>
-      </form> */}
     </div>
   );
 };

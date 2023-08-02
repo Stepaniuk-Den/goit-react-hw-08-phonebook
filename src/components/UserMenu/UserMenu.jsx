@@ -1,18 +1,18 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
+import { StyledUserMenu } from './UserMenu.styled';
+import { selectUserData } from 'redux/selectors';
 
 const UserMenu = ({ handleLogout }) => {
-  const userData = useSelector(state => state.user.userData);
+  const userData = useSelector(selectUserData);
 
   return (
-    <Stack spacing={2} direction="row">
+    <StyledUserMenu>
       <p>Hello, {userData.email}!</p>
-      <Button variant="contained" onClick={handleLogout}>
+      <button type="button" onClick={handleLogout}>
         Log Out
-      </Button>
-    </Stack>
+      </button>
+    </StyledUserMenu>
   );
 };
 

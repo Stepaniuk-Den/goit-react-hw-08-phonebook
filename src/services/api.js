@@ -34,18 +34,7 @@ export const logoutRequest = async () => {
   return data;
 };
 
-// export const currentUserRequest = async () => {
-//   const { data } = await $instance.get('/users/current');
-//   return data;
-// };
-
-export const currentUserRequest = async (_, thunkAPI) => {
-  const state = thunkAPI.getState();
-  const persistedToken = state.user.token;
-
-  if (!persistedToken) return thunkAPI.rejectWithValue();
-
-  setToken(persistedToken);
+export const currentUserRequest = async () => {
   const { data } = await $instance.get('/users/current');
   return data;
 };
