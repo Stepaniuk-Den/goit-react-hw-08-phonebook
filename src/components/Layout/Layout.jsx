@@ -1,9 +1,8 @@
 import Loader from 'components/Loader/Loader';
 import React, { Suspense } from 'react';
-import { Link, Outlet } from 'react-router-dom';
-import { StyledHeader, StyledNavLink } from './Layout.styled';
-import { useSelector } from 'react-redux';
-import UserMenu from 'components/UserMenu/UserMenu';
+import { Outlet } from 'react-router-dom';
+import { StyledHeader } from './Layout.styled';
+
 import Navigation from 'components/Navigation/Navigation';
 
 const Layout = ({ handleLogout }) => {

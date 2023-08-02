@@ -1,6 +1,6 @@
 import React, { Suspense, lazy, useEffect } from 'react';
-import { Link, Navigate, Route, Routes } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import Loader from './Loader/Loader';
 import { logoutThunk, refreshUserThunk } from 'redux/loginOperations';
