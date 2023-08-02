@@ -3,7 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import Loader from './Loader/Loader';
-import { logoutThunk, refreshUserThunk } from 'redux/loginOperations';
+import { logoutThunk, refreshUserThunk } from 'redux/auth/loginOperations';
 import Layout from './Layout/Layout';
 
 const Home = lazy(() => import('pages/Home/Home'));

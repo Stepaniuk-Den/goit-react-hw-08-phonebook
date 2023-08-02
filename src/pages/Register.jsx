@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useNavigate } from 'react-router-dom';
-import { registerThunk } from 'redux/loginOperations';
+import { registerThunk } from 'redux/auth/loginOperations';
 import { selectUserData } from 'redux/selectors';
 
 const Register = () => {
@@ -32,33 +32,6 @@ const Register = () => {
   return (
     <div>
       <SignUp handleSubmit={handleSubmit} />
-      {/* <h1>Register Account</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          <p>Name:</p>
-          <input placeholder="Name" name="userName" type="text" required />
-        </label>
-        <label>
-          <p>Email:</p>
-          <input
-            placeholder="mail@mail.com"
-            name="userEmail"
-            type="email"
-            required
-          />
-        </label>
-        <label>
-          <p>Password:</p>
-          <input
-            placeholder="password"
-            name="userPassword"
-            type="password"
-            minLength={7}
-            required
-          />
-        </label>
-        <button type="submit">Sign Up</button>
-      </form> */}
     </div>
   );
 };

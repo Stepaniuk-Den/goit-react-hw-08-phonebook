@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { StyledUserMenu } from './UserMenu.styled';
 import { selectUserData } from 'redux/selectors';
@@ -14,6 +15,10 @@ const UserMenu = ({ handleLogout }) => {
       </button>
     </StyledUserMenu>
   );
+};
+
+UserMenu.propTypes = {
+  handleLogout: PropTypes.func.isRequired,
 };
 
 export default UserMenu;

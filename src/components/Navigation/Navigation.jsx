@@ -1,5 +1,6 @@
 import UserMenu from 'components/UserMenu/UserMenu';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 import {
@@ -29,6 +30,10 @@ const Navigation = ({ handleLogout }) => {
       </StyledNavigation>
     </div>
   );
+};
+
+Navigation.propTypes = {
+  handleLogout: PropTypes.func.isRequired,
 };
 
 export default Navigation;

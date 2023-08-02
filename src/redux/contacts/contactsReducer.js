@@ -1,6 +1,6 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { addContact, deleteContact, fetchContacts } from './contactsOperations';
-import { handlePending, handleRejected } from './userReducer';
+import { handlePending, handleRejected } from '../auth/userReducer';
 
 const initialState = {
   contacts: [],
